@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar o Editar Sesión</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="form-title">Agregar nueva sesión</h2>
+    <form id="session-form">
+        <input type="text" id="id" placeholder="ID único (ej: fb1)" required />
+        <input type="text" id="name" placeholder="Nombre (ej: Facebook)" required />
+        <input type="text" id="url" placeholder="URL (https://...)" required />
+        <input type="text" id="partition" placeholder="Partition (ej: persist:fb1)" required />
+        <button type="submit">Guardar</button>
+
+        <button type="button" onclick="cancel()">Cancelar</button>
+    </form>
+
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const editingId = urlParams.get('edit');
+
+        if (editingId) {
+            document.getElementById('form-title').textContent = 'Editar sesión';
+            window.electronAPI.getSessions().then(sessions => {
+                const session = sessions.find(s => s.id === editingId);
+                if (session) {
+                    document.getElementById('id').value = session.id;
+                    document.getElementById('id').disabled = true;
+                    document.getElementById('name').value = session.name;
+                    document.getElementById('url').value = session.url;
+                    document.getElementById('partition').value = session.partition;
+                }
+            });
+        }
+
+        document.getElementById('session-form').onsubmit = (e) => {
+            e.preventDefault();
+
+            const sessionData = {
+                id: document.getElementById('id').value,
+                name: document.getElementById('name').value,
+                url: document.getElementById('url').value,
+                partition: document.getElementById('partition').value
+            };
+
+            window.electronAPI.addSession(sessionData);
+            alert('Sesión guardada correctamente.');
+            window.close();
+        };
+
+        function cancel() {
+            window.close(); // 👈 cerrar ventana al cancelar
+        }
+    </script>
+</body>
+
+</html>

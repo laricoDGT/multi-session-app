@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ajustes de Seguridad</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Ajustes de Seguridad</h2>
+
+    <form id="settings-form">
+        <label for="pin">Nuevo PIN</label>
+        <input type="password" id="pin" placeholder="Ej: 1234" required />
+
+        <label for="timeout">Auto-lock (minutos)</label>
+        <input type="number" id="timeout" placeholder="Ej: 5" min="1" required />
+
+        <button type="submit">Guardar</button>
+
+        <button type="button" onclick="cancel()">Cancelar</button>
+
+    </form>
+
+
+    <script>
+        const form = document.getElementById('settings-form');
+
+        // Cargar ajustes actuales al iniciar
+        window.electronAPI.getSettings().then(data => {
+            document.getElementById('pin').value = data.pin;
+            document.getElementById('timeout').value = data.autoLockMinutes;
+        });
+
+        // Guardar nuevos ajustes
+        form.onsubmit = (e) => {
+            e.preventDefault();
+
+            const newPin = document.getElementById('pin').value.trim();
+            const timeout = parseInt(document.getElementById('timeout').value);
+
+            if (newPin.length < 4) {
+                alert("PIN demasiado corto. Usa al menos 4 dígitos.");
+                return;
+            }
+
+            window.electronAPI.saveSettings({
+                pin: newPin,
+                autoLockMinutes: timeout
+            });
+
+            window.close(); // 👈 cerrar ventana al guardar
+        };
+
+        function cancel() {
+            window.close(); // 👈 cerrar ventana al cancelar
+        }
+
+
+
+    </script>
+</body>
+
+</html>

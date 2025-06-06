@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔓 Desbloquear App</title>
+
+    <style>
+        body {
+            display: grid;
+            place-content: center;
+            min-height: 100vh;
+            font-family: system-ui, sans-serif;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <main>
+        <fieldset>
+            <legend>🔓 Desbloquear App</legend>
+            <input id="pin" type="password" placeholder="PIN" />
+            <button onclick="unlock()">Entrar</button>
+            <div id="error" style="color:red;"></div>
+        </fieldset>
+    </main>
+
+    <script src="lock.js"></script>
+
+
+</body>
+
+</html>

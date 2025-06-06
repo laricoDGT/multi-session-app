@@ -1,0 +1,44 @@
+{
+  "sessions": [
+    {
+      "id": "gpt",
+      "name": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "partition": "persist:gpt"
+    },
+    {
+      "id": "fb",
+      "name": "Facebook",
+      "url": "https://facebook.com",
+      "partition": "persist:fb"
+    },
+    {
+      "id": "x",
+      "name": "X (Twitter)",
+      "url": "https://twitter.com",
+      "partition": "persist:x"
+    },
+    {
+      "id": "ig",
+      "name": "Instagram",
+      "url": "https://instagram.com",
+      "partition": "persist:ig"
+    },
+    {
+      "id": "wa",
+      "name": "WhatsApp",
+      "url": "https://web.whatsapp.com",
+      "partition": "persist:wa"
+    },
+    {
+      "id": "tg",
+      "name": "Telegram",
+      "url": "https://web.telegram.org",
+      "partition": "persist:tg"
+    }
+  ],
+  "settings": {
+    "pin": "1234",
+    "autoLockMinutes": 1
+  }
+}

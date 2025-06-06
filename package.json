@@ -1,0 +1,35 @@
+{
+  "name": "multi-session-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "App de múltiples sesiones usando Electron",
+  "author": "Larico (larico.dev)",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.larico.multisession",
+    "productName": "MultiSession",
+    "files": [
+      "main.js",
+      "preload.js",
+      "sessions.js",
+      "public/**/*",
+      "icon.png"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "icon.png",
+      "category": "Utility"
+    }
+  }
+}
