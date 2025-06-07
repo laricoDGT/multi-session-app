@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Preferencias de Sesiones</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main {
+            padding: 15px;
+            background: #f4f4f4;
+        }
+
+        #tabs {
+            margin-bottom: 12px;
+        }
+
+        .tab-item {
+            display: inline-flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        .tab-button {
+            padding: 12px 15px;
+
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tab-delete {
+            padding: 2px;
+            border: none;
+            background: transparent;
+            color: red;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .tab-move {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: #888;
+            padding: 0 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h2>Preferencias de Sesiones (Ordenar)</h2>
+        <div id="tabs"></div>
+
+        <button id="save-btn">Guardar orden</button>
+        <hr>
+        <h2>Agregar nueva sesión</h2>
+        <form id="session-form">
+            <input type="text" id="id" placeholder="ID único (ej: fb1)" required />
+            <input type="text" id="name" placeholder="Nombre (ej: Facebook)" required />
+            <input type="text" id="url" placeholder="URL (https://...)" required />
+            <input type="text" id="partition" placeholder="Partition (ej: persist:fb1)" required />
+            <button type="submit">Guardar sesión</button>
+        </form>
+        <hr>
+        <h2>Ajustes de Seguridad</h2>
+        <form id="settings-form">
+            <label for="pin">Nuevo PIN</label>
+            <input type="password" id="pin" placeholder="Ej: 1234" required />
+            <label for="timeout">Auto-lock (minutos)</label>
+            <input type="number" id="timeout" placeholder="Ej: 5" min="1" required />
+            <button type="submit">Guardar ajustes</button>
+        </form>
+    </main>
+
+
+    <hr>
+
+    <div style="margin-top: 10px;">
+        <label for="autolaunch">
+            <input type="checkbox" id="autolaunch" />
+            Iniciar MultiSession al iniciar el sistema
+        </label>
+    </div>
+
+    <script src="preferences.js"></script>
+</body>
+
+</html>

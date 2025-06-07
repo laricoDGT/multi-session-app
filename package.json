@@ -30,11 +30,13 @@
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
+        "AppImage"
       ],
       "icon": "icon.png",
       "category": "Utility"
     }
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.6"
   }
 }

@@ -32,3 +32,13 @@ chmod +x dist/MultiSession-1.0.0.AppImage
 ```
 
 ¡Y listo! Tu aplicación está empaquetada y funcionando.
+
+## Notas
+
+Si editas los Tabs por defecto, no te olvides de ejecutar en el terminal:
+
+```
+rm -f ~/.config/multi-session-app/storage.json
+```
+
+esto es para eliminar el storage que se crea en la app.

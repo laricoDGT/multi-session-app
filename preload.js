@@ -10,4 +10,10 @@ contextBridge.exposeInMainWorld("electronAPI", {
   unlockAttempt: (pin) => ipcRenderer.send("unlock-attempt", pin),
   onUnlockResult: (cb) =>
     ipcRenderer.on("unlock-result", (event, success) => cb(success)),
+  saveSessionsOrder: (sessionsArr) =>
+    ipcRenderer.send("save-sessions-order", sessionsArr),
+  refreshMenu: () => ipcRenderer.send("refresh-menu"),
+
+  getAutoLaunch: () => ipcRenderer.invoke("get-auto-launch"),
+  setAutoLaunch: (enabled) => ipcRenderer.send("set-auto-launch", enabled),
 });

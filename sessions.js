@@ -10,6 +10,30 @@ function getStorage() {
     const defaultData = {
       sessions: [
         {
+          id: "wa",
+          name: "WhatsApp",
+          url: "https://web.whatsapp.com",
+          partition: "persist:wa",
+        },
+        {
+          id: "wa2",
+          name: "WhatsApp 2",
+          url: "https://web.whatsapp.com",
+          partition: "persist:wa2",
+        },
+        {
+          id: "pmail",
+          name: "Proton Mail",
+          url: "https://mail.proton.me",
+          partition: "persist:pmail",
+        },
+        {
+          id: "tg",
+          name: "Telegram",
+          url: "https://web.telegram.org",
+          partition: "persist:tg",
+        },
+        {
           id: "fb",
           name: "Facebook",
           url: "https://facebook.com",
@@ -26,18 +50,6 @@ function getStorage() {
           name: "Instagram",
           url: "https://instagram.com",
           partition: "persist:ig",
-        },
-        {
-          id: "wa",
-          name: "WhatsApp",
-          url: "https://web.whatsapp.com",
-          partition: "persist:wa",
-        },
-        {
-          id: "tg",
-          name: "Telegram",
-          url: "https://web.telegram.org",
-          partition: "persist:tg",
         },
       ],
       settings: {
@@ -111,4 +123,6 @@ module.exports = {
   loadSettings,
   saveSettings,
   deleteSession,
+  getStorage,
+  saveStorage,
 };
