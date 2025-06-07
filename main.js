@@ -23,7 +23,6 @@ let lockTimer;
 let appMenu;
 
 const VIEW_TOP_OFFSET = 22;
-
 const WINDOW_STATE_FILE = path.join(
   app.getPath("userData"),
   "window-state.json"
@@ -169,7 +168,8 @@ function buildAppMenu(isLocked = true) {
             dialog.showMessageBox({
               type: "info",
               title: "Acerca de",
-              message: "MultiSession App v1.0\nCreado con Electron",
+              message:
+                "MultiSession App v1.0\nCreado con Electron por Chris Larico <chris@larico.dev> (https://larico.dev)",
               buttons: ["Cerrar"],
             });
           },
@@ -207,13 +207,11 @@ function buildAppMenu(isLocked = true) {
   Menu.setApplicationMenu(appMenu);
 }
 
-// 🟢 App lista
 app.whenReady().then(() => {
   createWindow("lock.html");
   buildAppMenu(true);
 });
 
-// 🔓 Desbloqueo con PIN
 ipcMain.on("unlock-attempt", (event, pin) => {
   const settings = loadSettings();
   const success = pin === settings.pin;
@@ -225,7 +223,6 @@ ipcMain.on("unlock-attempt", (event, pin) => {
   }
 });
 
-// 📦 Sesiones
 ipcMain.on("open-session", (event, sessionId) => {
   const session = loadSessions().find((s) => s.id === sessionId);
   if (session) showSessionInView(session);

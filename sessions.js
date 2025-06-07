@@ -39,12 +39,6 @@ function getStorage() {
           url: "https://web.telegram.org",
           partition: "persist:tg",
         },
-        {
-          id: "gpt",
-          name: "ChatGPT",
-          url: "https://chat.openai.com",
-          partition: "persist:gpt",
-        },
       ],
       settings: {
         pin: "1234",

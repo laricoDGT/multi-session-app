@@ -1,12 +1,6 @@
 {
   "sessions": [
     {
-      "id": "gpt",
-      "name": "ChatGPT",
-      "url": "https://chat.openai.com",
-      "partition": "persist:gpt"
-    },
-    {
       "id": "fb",
       "name": "Facebook",
       "url": "https://facebook.com",
@@ -39,6 +33,6 @@
   ],
   "settings": {
     "pin": "1234",
-    "autoLockMinutes": 1
+    "autoLockMinutes": 5
   }
 }

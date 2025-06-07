@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "main.js",
   "description": "App de múltiples sesiones usando Electron",
-  "author": "Larico (larico.dev)",
+  "author": {
+    "name": "Chris Larico",
+    "email": "chris@larico.dev",
+    "url": "https://larico.dev",
+    "github": "https://github.com/laricoDGT/multi-session-app"
+  },
   "license": "MIT",
   "scripts": {
     "start": "electron .",
