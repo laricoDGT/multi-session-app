@@ -276,7 +276,9 @@ function buildAppMenu(isLocked = true) {
           label: "Bloquear ahora",
           click: () => {
             removeCurrentView();
-            mainWin.loadFile(path.join(__dirname, "public", "lock.html"));
+            if (mainWin) {
+              mainWin.loadFile(path.join(__dirname, "public", "lock.html"));
+            }
             buildAppMenu(true);
           },
         },
@@ -431,6 +433,12 @@ ipcMain.handle("get-settings", () => loadSettings());
 ipcMain.on("save-settings", (event, data) => {
   saveSettings(data);
   resetLockTimer();
+});
+
+ipcMain.on("lock-app", () => {
+  if (mainWin) {
+    mainWin.webContents.send("lock");
+  }
 });
 
 app.on("window-all-closed", () => {

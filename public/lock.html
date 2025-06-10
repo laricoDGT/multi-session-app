@@ -1,44 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔓 Desbloquear App</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            display: grid;
-            place-content: center;
-            min-height: 100vh;
-            font-family: system-ui, sans-serif;
-            font-size: 2rem;
-            margin: 0;
-        }
-    </style>
+    <title>Bloqueo - Multi Session App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-
-    <main>
+    <div id="lock-screen" style="display: flex;">
         <fieldset>
-            <legend>🔓 Desbloquear App</legend>
-
-            <input id="pin" type="password" placeholder="PIN" value="1234" />
-            <button onclick="unlock()">Entrar</button>
-
+            <legend>🔒 Bloqueado</legend>
+            <input type="password" id="pin" placeholder="Ingresa PIN" />
+            <button id="unlock-btn">Ingresar</button>
             <div id="error" style="color:red;"></div>
         </fieldset>
-    </main>
-
+    </div>
     <script src="lock.js"></script>
-
-
 </body>
 
 </html>

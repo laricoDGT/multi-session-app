@@ -1,16 +1,7 @@
 let sessions = [];
 
-// 🔐 AppLock
-function unlock() {
-  const pin = document.getElementById("pin").value;
-  window.electronAPI.unlockAttempt(pin);
-}
+window.addEventListener("DOMContentLoaded", () => {
+  const mainApp = document.getElementById("main-app");
 
-window.electronAPI.onUnlockResult((success) => {
-  if (success) {
-    document.getElementById("main-app").style.display = "flex";
-    document.getElementById("lock-screen").style.display = "none";
-  } else {
-    document.getElementById("error").textContent = "PIN incorrecto";
-  }
+  // Aquí puedes agregar lógica específica para la app principal
 });

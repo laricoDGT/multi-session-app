@@ -21,6 +21,15 @@ body {
 
 #lock-screen {
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    background-color: #eee;
+
+
+    fieldset {
+        background-color: #fff;
+    }
 }
 
 #lock-screen input {
