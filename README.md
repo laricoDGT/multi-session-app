@@ -24,6 +24,15 @@ Esto generará un archivo como:
 
 `dist/MultiSession-1.0.0.AppImage` y `multi-session-app_1.0.0_amd64.deb`
 
+siempre en cuando en el package tenga:
+
+```
+"target": [
+        "AppImage",
+        "deb"
+      ],
+```
+
 ## ▶️ Ejecutar la App
 
 ```

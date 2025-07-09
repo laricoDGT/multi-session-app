@@ -72,6 +72,7 @@ function createWindow(file = "lock.html") {
     useContentSize: true,
     icon: path.join(__dirname, "icon.png"),
     webPreferences: {
+      spellcheck: true,
       preload: path.join(__dirname, "preload.js"),
       contextMenu: true, // Habilitar menú contextual nativo
     },
@@ -157,6 +158,33 @@ function showSessionInView(session) {
   views[session.id].webContents.on("context-menu", (event, params) => {
     const menuTemplate = [];
 
+    // Sugerencias de corrección ortográfica
+    if (
+      params.misspelledWord &&
+      params.dictionarySuggestions &&
+      params.dictionarySuggestions.length > 0
+    ) {
+      params.dictionarySuggestions.slice(0, 5).forEach((suggestion) => {
+        menuTemplate.push({
+          label: suggestion,
+          click: () => {
+            views[session.id].webContents.replaceMisspelling(suggestion);
+          },
+        });
+      });
+      menuTemplate.push({ type: "separator" });
+      menuTemplate.push({
+        label: "Agregar al diccionario",
+        click: () => {
+          views[session.id].webContents.session.addWordToSpellCheckerDictionary(
+            params.misspelledWord
+          );
+        },
+      });
+      menuTemplate.push({ type: "separator" });
+    }
+
+    // Abrir enlaces en navegador nativo
     if (params.linkURL) {
       menuTemplate.push({
         label: "Abrir enlace en navegador",
@@ -167,7 +195,11 @@ function showSessionInView(session) {
       menuTemplate.push({ type: "separator" });
     }
 
+    // Acciones estándar
     menuTemplate.push(
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
       { role: "cut" },
       { role: "copy" },
       { role: "paste" },
@@ -175,6 +207,7 @@ function showSessionInView(session) {
       { role: "selectAll" },
       { type: "separator" },
       { role: "reload" }
+      // { role: "toggleDevTools" }
     );
 
     Menu.buildFromTemplate(menuTemplate).popup({ window: mainWin });
@@ -185,6 +218,8 @@ function showSessionInView(session) {
     mainWin.loadFile(path.join(__dirname, "public", "index.html"));
   }
   buildAppMenu(false); // Refresca el menú para mostrar el activo
+
+  mainWin.webContents.send("session-changed", session.id);
 }
 
 function removeCurrentView() {
@@ -360,10 +395,29 @@ function createTray() {
 }
 
 app.whenReady().then(() => {
+  if (app.setSpellCheckerLanguages) {
+    app.setSpellCheckerLanguages(["es-ES", "en-US"]);
+  }
   createWindow("lock.html");
   buildAppMenu(true);
   createTray();
   setupLockTimerFocusHandlers();
+});
+
+// Manejo de notificaciones para enfocar la app al hacer clic
+app.on("web-contents-created", (event, contents) => {
+  contents.on("new-window", (event, url) => {
+    // Previene que se abran nuevas ventanas externas
+    event.preventDefault();
+    require("electron").shell.openExternal(url);
+  });
+
+  contents.on("notification-click", () => {
+    if (mainWin) {
+      if (!mainWin.isVisible()) mainWin.show();
+      mainWin.focus();
+    }
+  });
 });
 
 ipcMain.handle("get-auto-launch", async () => {
@@ -384,11 +438,6 @@ ipcMain.on("unlock-attempt", (event, pin) => {
   event.reply("unlock-result", success);
   if (success) {
     mainWin.loadFile(path.join(__dirname, "public", "index.html"));
-    // Mostrar la primera sesión automáticamente
-    const sessions = loadSessions();
-    if (sessions.length > 0) {
-      showSessionInView(sessions[0]);
-    }
     buildAppMenu(false);
     resetLockTimer();
   }

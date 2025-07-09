@@ -13,7 +13,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   saveSessionsOrder: (sessionsArr) =>
     ipcRenderer.send("save-sessions-order", sessionsArr),
   refreshMenu: () => ipcRenderer.send("refresh-menu"),
-
-  getAutoLaunch: () => ipcRenderer.invoke("get-auto-launch"),
-  setAutoLaunch: (enabled) => ipcRenderer.send("set-auto-launch", enabled),
+  onSessionChanged: (cb) =>
+    ipcRenderer.on("session-changed", (e, id) => cb(id)),
 });
