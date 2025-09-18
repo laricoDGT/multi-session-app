@@ -78,6 +78,15 @@ function createWindow(file = "lock.html") {
     },
   });
 
+  // Forzar user agent moderno en la ventana principal
+  mainWin.webContents.session.webRequest.onBeforeSendHeaders(
+    (details, callback) => {
+      details.requestHeaders["User-Agent"] =
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
+      callback({ cancel: false, requestHeaders: details.requestHeaders });
+    }
+  );
+
   mainWin.loadFile(path.join(__dirname, "public", file));
 
   mainWin.webContents.on("before-input-event", (event, input) => {
@@ -130,12 +139,15 @@ function showSessionInView(session) {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
+        enableRemoteModule: false,
         partition: session.partition || undefined,
+        preload: path.join(__dirname, "preload.js"),
       },
     });
 
+    // User agent de Chrome 124
     view.webContents.setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     );
 
     view.webContents.loadURL(session.url);

@@ -14,6 +14,12 @@ npm start
 
 Esto ejecutará la aplicación en modo desarrollo.
 
+clave por defecto:
+
+```
+1234
+```
+
 ## 🚀 Generar el AppImage
 
 ```
