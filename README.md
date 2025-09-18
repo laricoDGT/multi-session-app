@@ -57,3 +57,11 @@ rm -f ~/.config/multi-session-app/storage.json
 ```
 
 esto es para eliminar el storage que se crea en la app.
+
+## ❌ Desinstalar la App (si instalaste el .deb)
+
+Si instalaste el `.deb`, puedes desinstalar con:
+
+```
+sudo apt remove multi-session-app
+```

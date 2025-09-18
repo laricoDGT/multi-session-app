@@ -218,9 +218,35 @@ function showSessionInView(session) {
       { type: "separator" },
       { role: "selectAll" },
       { type: "separator" },
-      { role: "reload" }
+      {
+        label: "Refrescar página",
+        accelerator: "Ctrl+R",
+        click: () => {
+          views[session.id].webContents.reload();
+        },
+      }
       // { role: "toggleDevTools" }
     );
+    // Atajos de teclado para refrescar la página activa
+    // Solo si esta vista está activa
+    if (mainWin && currentViewId === session.id) {
+      mainWin.webContents.on("before-input-event", (event, input) => {
+        if (
+          ((input.control || input.meta) &&
+            input.key.toUpperCase() === "R" &&
+            !input.shift) ||
+          ((input.control || input.meta) &&
+            input.shift &&
+            input.key.toUpperCase() === "R")
+        ) {
+          // Refrescar la página activa (BrowserView)
+          if (views[session.id]) {
+            views[session.id].webContents.reload();
+            event.preventDefault();
+          }
+        }
+      });
+    }
 
     Menu.buildFromTemplate(menuTemplate).popup({ window: mainWin });
   });
